@@ -19,5 +19,5 @@ Resources:
         Schedule:
           Type: Schedule
           Properties:
-            Name: ErcotLoadForecastDownload
+            Name: ErcotLoadByWeatherZoneForecastDownload
             Schedule: cron(0 * ? * * *)
