@@ -1,0 +1,23 @@
+Transform: 'AWS::Serverless-2016-10-31'
+Description: >
+  SAM Template
+Resources:
+  Function:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      FunctionName: ercot_load_forecast_by_wzone
+      Description: >
+        Lambda function that scrapes the 7 day forecast by weather zone from ERCOT's website every hour
+      Handler: main.lambda_handler
+      MemorySize: 2048
+      Runtime: python3.7
+      Timeout: 300
+      Policies:
+        - AmazonS3FullAccess
+        - AWSLambdaBasicExecutionRole
+      Events:
+        Schedule:
+          Type: Schedule
+          Properties:
+            Name: ErcotLoadForecastDownload
+            Schedule: cron(0 * ? * * *)
