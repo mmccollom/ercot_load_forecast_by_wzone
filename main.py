@@ -9,8 +9,8 @@ import pytz
 
 
 def execute():
-    report_type_id = '12311'
-    s3_path = 's3://ercot-62841215/load_forecast/'
+    report_type_id = '12312'
+    s3_path = 's3://ercot-62841215/load_forecast_by_weather_zone/'
 
     # create cut_off_dt from publish_date and publish_hour
     local_tz = pytz.timezone('America/Chicago')
@@ -53,9 +53,10 @@ def execute():
         df.columns = df.columns.str.strip()
 
         # rename columns
-        col_remap = {'DeliveryDate': 'delivery_date', 'HourEnding': 'hour_ending', 'North': 'north', 'South': 'south',
-                     'West': 'west', 'Houston': 'houston', 'DSTFlag': 'is_day_light_savings',
-                     'SystemTotal': 'system_total'}
+        col_remap = {'DeliveryDate': 'delivery_date', 'HourEnding': 'hour_ending', 'Coast': 'coast', 'East': 'east',
+                     'FarWest': 'far_west', 'North': 'north', 'NorthCentral': 'north_central',
+                     'SouthCentral': 'south_central', 'Southern': 'southern', 'West': 'west',
+                     'DSTFlag': 'is_day_light_savings', 'SystemTotal': 'system_total'}
         df.rename(columns=col_remap, inplace=True)
 
         # convert delivery_date to datetime 05/18/2023
